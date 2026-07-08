@@ -531,26 +531,10 @@
       <h2>Des vidéos, recueils, textes et rapports pour faire porter ta voix.</h2>
       <p class="liv-sub">Un aperçu de nos dernières créations, chaque livrable est détaillé sur sa page dédiée.</p>
     </div>
-    <div class="liv-note" data-reveal><span class="dot"></span> Cette sélection sera connectée à Airtable : les dernières entrées d'un tableau apparaissent ici automatiquement.</div>
-    <div class="liv-grid">
-      <div class="liv-card" data-reveal>
-        <div class="photo-slot" style="position:relative;"><span class="liv-tag">Vidéo</span><span class="icon">🎬</span></div>
-        <div class="liv-body"><span class="prog-name">EloShow</span><h4>Finale Publiq, restitution</h4><p>Temps fort de célébration des parcours.</p></div>
-      </div>
-      <div class="liv-card" data-reveal>
-        <div class="photo-slot" style="position:relative;"><span class="liv-tag">Photos</span><span class="icon">📸</span></div>
-        <div class="liv-body"><span class="prog-name">EloMic</span><h4>Open mic, saison 2026</h4><p>La galerie d'une soirée scène ouverte.</p></div>
-      </div>
-      <div class="liv-card" data-reveal>
-        <div class="photo-slot" style="position:relative;"><span class="liv-tag">Recueil</span><span class="icon">📖</span></div>
-        <div class="liv-body"><span class="prog-name">FeloWrite</span><h4>Recueil de textes 2026</h4><p>Une sélection de textes nés en atelier d'écriture.</p></div>
-      </div>
-      <div class="liv-card" data-reveal>
-        <div class="photo-slot" style="position:relative;"><span class="liv-tag">Rapport</span><span class="icon">📝</span></div>
-        <div class="liv-body"><span class="prog-name">Publiq</span><h4>Memorandum des participants</h4><p>Constats et recommandations écrits par les jeunes eux-mêmes.</p></div>
-      </div>
+    <div class="liv-grid" id="homeLivGrid">
+      <p style="text-align:center; color:rgba(42,34,38,0.5); grid-column:1/-1;">Chargement…</p>
     </div>
-    <a href="#" class="btn-ghost liv-see-all">Voir tous nos livrables →</a>
+    <a href="livrables.html" class="btn-ghost liv-see-all">Voir tous nos livrables →</a>
   </div>
 </section>
 
@@ -617,6 +601,44 @@
       navToggle.setAttribute('aria-expanded', 'false');
     }));
   }
+
+  // ---------- Livrables mis en avant (Airtable, champ "Sur la page d'accueil") ----------
+  const TYPE_ICONS = { 'Vidéo': '🎬', 'Photos': '📸', 'Recueil': '📖', 'Rapport': '📋', 'Podcast': '🎙️' };
+  const homeLivGrid = document.getElementById('homeLivGrid');
+
+  function escapeHTMLHome(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  fetch('/api/livrables')
+    .then(res => res.ok ? res.json() : Promise.reject())
+    .then(data => {
+      const featured = (data.records || []).filter(r => r.surAccueil).slice(0, 4);
+      if (featured.length === 0) {
+        homeLivGrid.innerHTML = '<p style="text-align:center; color:rgba(42,34,38,0.5); grid-column:1/-1;">Les prochains livrables mis en avant apparaîtront ici.</p>';
+        return;
+      }
+      homeLivGrid.innerHTML = featured.map(r => {
+        const icon = TYPE_ICONS[r.type] || '📄';
+        const thumbStyle = r.imageUrl
+          ? `background-image:url('${r.imageUrl}'); background-size:cover; background-position:center; border:none;`
+          : '';
+        const thumbIcon = r.imageUrl ? '' : `<span class="icon">${icon}</span>`;
+        const desc = r.description ? `<p>${escapeHTMLHome(r.description)}</p>` : '';
+        const prog = r.programme ? `<span class="prog-name">${escapeHTMLHome(r.programme)}</span>` : '';
+        return `
+          <a href="livrables.html" class="liv-card" data-reveal style="text-decoration:none; color:inherit;">
+            <div class="photo-slot" style="position:relative; ${thumbStyle}"><span class="liv-tag">${r.type}</span>${thumbIcon}</div>
+            <div class="liv-body">${prog}<h4>${escapeHTMLHome(r.titre || 'Sans titre')}</h4>${desc}</div>
+          </a>`;
+      }).join('');
+    })
+    .catch(() => {
+      // Hors ligne Netlify (test local) : la section reste discrète plutôt que cassée
+      homeLivGrid.innerHTML = '<p style="text-align:center; color:rgba(42,34,38,0.5); grid-column:1/-1;">Les livrables s\'affichent ici une fois le site en ligne.</p>';
+    });
 </script>
 
 </body>

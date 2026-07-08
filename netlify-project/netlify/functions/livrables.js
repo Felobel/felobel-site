@@ -49,6 +49,8 @@ exports.handler = async function () {
         imageUrl: cover ? cover.url : null,
         // Lien externe (YouTube/Vimeo/autre), utilisé si pas de fichier joint
         lienExterne: f['Lien externe'] || null,
+        // Mise en avant sur la page d'accueil
+        surAccueil: !!f["Sur la page d'accueil"],
       };
     });
 
