@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Assure que les appels vers /api/livrables sont bien redirigés vers la fonction
+[[redirects]]
+  from = "/api/livrables"
+  to = "/.netlify/functions/livrables"
+  status = 200
