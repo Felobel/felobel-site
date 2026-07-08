@@ -33,6 +33,7 @@ exports.handler = async function () {
     const records = (data.records || []).map((r) => {
       const f = r.fields || {};
       const attachment = Array.isArray(f['Fichier']) && f['Fichier'].length > 0 ? f['Fichier'][0] : null;
+      const cover = Array.isArray(f['Image de couverture']) && f['Image de couverture'].length > 0 ? f['Image de couverture'][0] : null;
 
       return {
         id: r.id,
@@ -44,6 +45,8 @@ exports.handler = async function () {
         // URL directe du fichier joint (PDF, vidéo, image), si présent
         fichierUrl: attachment ? attachment.url : null,
         fichierNomType: attachment ? attachment.type : null, // ex: "application/pdf"
+        // Image de couverture pour la vignette de la galerie (indépendante du fichier)
+        imageUrl: cover ? cover.url : null,
         // Lien externe (YouTube/Vimeo/autre), utilisé si pas de fichier joint
         lienExterne: f['Lien externe'] || null,
       };

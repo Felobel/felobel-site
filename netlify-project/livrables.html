@@ -496,9 +496,13 @@
     background:var(--white); border:none; box-shadow:0 4px 14px rgba(42,34,38,0.15);
     font-size:1.2rem; line-height:1; cursor:pointer; z-index:2; color:var(--ink);
   }
+  .liv-modal-header{padding:34px 34px 18px; padding-right:64px;}
+  .liv-modal-header .liv-tag{display:inline-block; margin-bottom:12px;}
+  .liv-modal-header .prog-name{font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--primary); font-weight:700; display:block; margin-bottom:6px;}
+  .liv-modal-header h3{font-size:1.5rem; font-weight:700; margin:0;}
   .liv-modal-media{
-    height:280px; position:relative; display:flex; align-items:center; justify-content:center;
-    background:var(--ink); color:var(--cream); border-radius:var(--r-lg) var(--r-lg) 0 0;
+    height:420px; position:relative; display:flex; align-items:center; justify-content:center;
+    background:var(--ink); color:var(--cream); margin:0 34px; border-radius:var(--r-md); overflow:hidden;
   }
   .liv-modal-media .play-btn{
     width:70px; height:70px; border-radius:50%; background:var(--primary); border:none; cursor:pointer;
@@ -508,10 +512,11 @@
   .liv-modal-media .play-btn:hover{transform:scale(1.08);}
   .liv-modal-media .doc-icon{font-size:3.5rem; opacity:0.85;}
   .liv-modal-media small{position:absolute; bottom:14px; left:0; right:0; text-align:center; font-size:0.72rem; color:rgba(243,233,220,0.55);}
-  .liv-modal-body{padding:30px 34px 36px;}
-  .liv-modal-body .liv-tag{position:static; display:inline-block; margin-bottom:12px;}
-  .liv-modal-body .prog-name{font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--primary); font-weight:700; display:block; margin-bottom:6px;}
-  .liv-modal-body h3{font-size:1.4rem; font-weight:700; margin:0 0 12px;}
+  .liv-modal-body{padding:22px 34px 36px;}
+  .liv-modal-body .desc-label{
+    display:block; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:rgba(42,34,38,0.4); margin-bottom:8px;
+  }
   .liv-modal-body p{font-size:0.96rem; color:rgba(42,34,38,0.68); line-height:1.6; margin:0 0 20px;}
   .liv-modal-actions{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
   .liv-modal-date{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:rgba(42,34,38,0.4);}
@@ -571,6 +576,7 @@
 <div class="liv-modal-overlay" id="livModalOverlay">
   <div class="liv-modal">
     <button class="liv-modal-close" id="livModalCloseBtn" aria-label="Fermer">✕</button>
+    <div class="liv-modal-header" id="livModalHeader"></div>
     <div class="liv-modal-media" id="livModalMedia"></div>
     <div class="liv-modal-body" id="livModalBody"></div>
   </div>
@@ -665,9 +671,13 @@
       const desc = r.description ? `<p>${escapeHTML(r.description)}</p>` : '';
       const date = r.date ? `<span class="gal-date">${escapeHTML(r.date)}</span>` : '';
       const prog = r.programme ? `<span class="prog-name">${escapeHTML(r.programme)}</span>` : '';
+      const thumbStyle = r.imageUrl
+        ? `border-radius:0; background-image:url('${r.imageUrl}'); background-size:cover; background-position:center; border:none;`
+        : 'border-radius:0;';
+      const thumbIcon = r.imageUrl ? '' : `<span class="icon">${meta.icon}</span>`;
       return `
         <div class="gal-card" data-type="${meta.cls}" data-id="${r.id}">
-          <div class="photo-slot gal-thumb" style="border-radius:0;"><span class="liv-tag">${meta.label}</span><span class="icon">${meta.icon}</span></div>
+          <div class="photo-slot gal-thumb" style="${thumbStyle}"><span class="liv-tag">${meta.label}</span>${thumbIcon}</div>
           <div class="gal-body">${prog}<h4>${escapeHTML(r.titre || 'Sans titre')}</h4>${desc}${date}</div>
         </div>`;
     }).join('');
@@ -705,6 +715,7 @@
 
   // ---------- Modal with real media (video / audio / inline PDF / image) ----------
   const modalOverlay = document.getElementById('livModalOverlay');
+  const modalHeader = document.getElementById('livModalHeader');
   const modalMedia = document.getElementById('livModalMedia');
   const modalBody = document.getElementById('livModalBody');
   const modalCloseBtn = document.getElementById('livModalCloseBtn');
@@ -737,14 +748,16 @@
     }
     modalMedia.innerHTML = mediaHTML;
 
-    const desc = r.description ? `<p>${escapeHTML(r.description)}</p>` : '';
     const prog = r.programme ? `<span class="prog-name">${escapeHTML(r.programme)}</span>` : '';
+    modalHeader.innerHTML =
+      `<span class="liv-tag">${meta.label}</span>` +
+      prog +
+      `<h3>${escapeHTML(r.titre || 'Sans titre')}</h3>`;
+
+    const desc = r.description ? `<span class="desc-label">Description</span><p>${escapeHTML(r.description)}</p>` : '';
     const date = r.date ? `<span class="liv-modal-date">${escapeHTML(r.date)}</span>` : '';
 
     modalBody.innerHTML =
-      `<span class="liv-tag">${meta.label}</span>` +
-      prog +
-      `<h3>${escapeHTML(r.titre || 'Sans titre')}</h3>` +
       desc +
       `<div class="liv-modal-actions">${actionHTML}${date}</div>`;
 
