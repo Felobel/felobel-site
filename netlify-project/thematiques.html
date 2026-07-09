@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <title>Felobel : Thématiques</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +76,13 @@
     box-shadow:0 6px 18px rgba(191,64,77,0.25);
   }
   .nav-cta:hover{background:var(--primary-dark); transform:translateY(-2px) scale(1.03);}
+  .nav-cta-mobile{
+    display:none; background:var(--primary); color:var(--white); padding:12px 26px;
+    border-radius:var(--r-pill); font-size:0.88rem; font-weight:700;
+    text-decoration:none; letter-spacing:0.01em; text-align:center;
+  }
+  .logo-mini{flex:none; min-width:0;}
+  .logo-mini img{max-width:100%;}
 
   /* ---------- NAV DROPDOWN (Activites) ---------- */
   .nav-dropdown{position:relative;}
@@ -410,6 +417,15 @@
     }
     .nav-dropdown.open .nav-dropdown-menu{max-height:360px;}
     .nav-dropdown-menu a{padding:9px 14px !important;}
+    .nav-cta{display:none;}
+    .nav-cta-mobile{
+      display:flex; justify-content:center; margin-top:10px;
+      padding:13px 22px; width:100%; color:var(--white) !important; opacity:1 !important;
+    }
+    nav .wrap{padding-left:20px; padding-right:20px;}
+  }
+  @media (max-width:400px){
+    .logo-mini img{height:28px;}
   }
 
   /* ---------- ACCESSIBILITY ---------- */
@@ -502,6 +518,7 @@
       <a href="livrables.html">Livrables</a>
       <a href="photos.html">Nos Photos</a>
       <a href="soutenir.html">Nous soutenir</a>
+      <a href="contact.html" class="nav-cta-mobile">Nous contacter</a>
     </div>
     <div class="nav-right">
       <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
