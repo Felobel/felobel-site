@@ -581,11 +581,10 @@
 </footer>
 
 <script>
-  const els = document.querySelectorAll('[data-reveal]');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   }, {threshold:0.12});
-  els.forEach(el=>io.observe(el));
+  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 
   const navToggle = document.querySelector('.nav-toggle');
   const navLinksEl = document.querySelector('.nav-links');
@@ -634,6 +633,9 @@
             <div class="liv-body">${prog}<h4>${escapeHTMLHome(r.titre || 'Sans titre')}</h4>${desc}</div>
           </a>`;
       }).join('');
+      // Les cartes viennent d'être injectées après le scan initial des [data-reveal] :
+      // il faut les observer maintenant, sinon elles restent invisibles pour toujours.
+      homeLivGrid.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
     })
     .catch(() => {
       // Hors ligne Netlify (test local) : la section reste discrète plutôt que cassée
