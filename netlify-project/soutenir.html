@@ -379,6 +379,8 @@
   .stat .num{font-family:'Jost'; font-size:clamp(1.9rem,2.6vw,2.5rem); font-weight:800; color:var(--salmon); line-height:1.1; white-space:nowrap;}
   .stat .lbl{width:100%; font-size:0.86rem; line-height:1.45; color:rgba(255,253,248,0.75);}
   @media (max-width:480px){ .impact-stats{grid-template-columns:1fr;} }
+  .impact-stats-3col{grid-template-columns:repeat(3,1fr) !important;}
+  @media (max-width:700px){ .impact-stats-3col{grid-template-columns:1fr !important;} }
   .impact-src{margin-top:14px; font-size:0.72rem; color:rgba(255,253,248,0.5);}
 
   /* ---------- CTA ---------- */
@@ -449,6 +451,10 @@
   }
   @media (max-width:400px){
     .logo-mini img{height:28px;}
+  }
+  @media (max-width:700px){
+    footer .wrap{flex-direction:column; align-items:flex-start; gap:16px;}
+    .foot-links{flex-wrap:wrap; gap:12px 20px;}
   }
 
   /* ---------- ACCESSIBILITY ---------- */
@@ -778,7 +784,7 @@
       <span class="eyebrow" style="justify-content:center;">Ce que ça donne, concrètement</span>
       <h2>Une association qui grandit, une action qui se mesure.</h2>
     </div>
-    <div class="impact-stats" data-reveal style="grid-template-columns:repeat(3,1fr); max-width:900px; margin:44px auto 0;">
+    <div class="impact-stats impact-stats-3col" data-reveal style="max-width:900px; margin:44px auto 0;">
       <div class="stat" style="background:var(--cream);"><span class="num" style="color:var(--primary);">1 500+</span><span class="lbl" style="color:rgba(42,34,38,0.6);">jeunes accompagnés chaque année</span></div>
       <div class="stat" style="background:var(--cream);"><span class="num" style="color:var(--primary);">300+</span><span class="lbl" style="color:rgba(42,34,38,0.6);">activités menées chaque année</span></div>
       <div class="stat" style="background:var(--cream);"><span class="num" style="color:var(--primary);">100%</span><span class="lbl" style="color:rgba(42,34,38,0.6);">de nos activités sont gratuites</span></div>
