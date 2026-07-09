@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <title>Felobel : Nous soutenir</title>
+<meta name="description" content="Soutenez Felobel pour permettre à davantage de jeunes adultes belges de développer leur prise de parole et leur pouvoir d'agir citoyen.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://felobel.be/soutenir">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Felobel">
+<meta property="og:locale" content="fr_BE">
+<meta property="og:title" content="Felobel : Nous soutenir">
+<meta property="og:description" content="Soutenez Felobel pour permettre à davantage de jeunes adultes belges de développer leur prise de parole et leur pouvoir d'agir citoyen.">
+<meta property="og:url" content="https://felobel.be/soutenir">
+<meta property="og:image" content="https://felobel.be/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Felobel : Nous soutenir">
+<meta name="twitter:description" content="Soutenez Felobel pour permettre à davantage de jeunes adultes belges de développer leur prise de parole et leur pouvoir d'agir citoyen.">
+<meta name="twitter:image" content="https://felobel.be/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -576,7 +593,48 @@
   .ways-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
   @media (max-width:900px){ .ways-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:560px){ .ways-grid{grid-template-columns:1fr;} }
+  /* ---------- LEGAL BAR ---------- */
+  .legal-bar{
+    background:var(--ink); color:rgba(255,253,248,0.55);
+    padding:20px 0; font-size:0.78rem; line-height:1.7;
+  }
+  .legal-bar .wrap{
+    display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px 24px;
+  }
+  .legal-bar a{color:rgba(255,253,248,0.75); text-decoration:none;}
+  .legal-bar a:hover{color:var(--salmon);}
+  .legal-bar .legal-id{opacity:0.75;}
+  @media (max-width:700px){
+    .legal-bar .wrap{flex-direction:column; align-items:flex-start; text-align:left;}
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  "name": "Felobel",
+  "alternateName": "Fédération d'Éloquence Belge",
+  "url": "https://felobel.be/",
+  "logo": "https://felobel.be/assets/og-image.png",
+  "description": "Felobel est l'association belge de référence pour la prise de parole des jeunes adultes : formations, concours, scènes ouvertes et parcours citoyens pour transformer l'éloquence en pouvoir d'agir.",
+  "email": "info@felobel.be",
+  "telephone": "+32470014030",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Boulevard Lambermont 55",
+    "addressLocality": "Schaerbeek",
+    "postalCode": "1030",
+    "addressCountry": "BE"
+  },
+  "vatID": "BE0761808009",
+  "areaServed": "BE",
+  "sameAs": [
+    "https://www.instagram.com/felobel.be/",
+    "https://www.facebook.com/felobel.be/",
+    "https://linktr.ee/felobel"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -782,6 +840,14 @@
       <a href="contact.html">Contact</a>
     </div>
   </div>
+
+<div class="legal-bar">
+  <div class="wrap">
+    <span>&copy; Felobel ASBL &mdash; Tous droits r&eacute;serv&eacute;s.</span>
+    <span class="legal-id">BCE 0761.808.009 &middot; Bld. Lambermont 55, 1030 Schaerbeek</span>
+    <span><a href="mailto:info@felobel.be">info@felobel.be</a> &middot; <a href="tel:+32470014030">+32 470 01 40 30</a></span>
+  </div>
+</div>
 </footer>
 
 <script>
