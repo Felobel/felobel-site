@@ -319,15 +319,10 @@
   .supporters-head .eyebrow{justify-content:center;}
   .logo-wall{display:flex; flex-wrap:wrap; justify-content:center; gap:22px;}
   .logo-slot{
-    width:220px; height:110px; background:var(--white); border-radius:var(--r-md);
-    display:flex; align-items:center; justify-content:center; text-align:center; padding:14px;
-    box-shadow:0 8px 20px rgba(42,34,38,0.05); color:rgba(42,34,38,0.5); font-weight:600; font-size:0.85rem;
+    width:220px; height:110px; background:transparent; border-radius:var(--r-md);
+    display:flex; align-items:center; justify-content:center;
+    border:2px dashed rgba(191,64,77,0.35); color:var(--primary); font-size:1.6rem;
   }
-  .logo-slot--add{
-    border:2px dashed rgba(191,64,77,0.35); background:transparent; box-shadow:none; color:var(--primary); flex-direction:column; gap:4px;
-  }
-  .logo-slot--add span{font-size:1.6rem; line-height:1;}
-  .supporters-note{text-align:center; max-width:480px; margin:32px auto 0; font-size:0.85rem; color:rgba(42,34,38,0.55);}
 
   /* ---------- LIVRABLES ---------- */
   .livrables{padding:90px 0 100px;}
@@ -383,6 +378,27 @@
 
   /* ---------- CTA ---------- */
   .cta{padding:110px 0 100px;}
+
+  /* ---------- TEAM ---------- */
+  .team{padding:90px 0 100px; background:var(--white);}
+  .team-head{max-width:640px; margin-bottom:12px;}
+  .team-head h2{font-size:clamp(1.9rem,3.2vw,2.5rem); margin-top:14px;}
+  .team-head p{margin:14px 0 0; font-size:0.98rem; color:rgba(42,34,38,0.6); max-width:560px;}
+  .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px 32px; margin-top:52px;}
+  .team-card{text-align:center;}
+  .team-photo{
+    width:150px; height:150px; margin:0 auto 20px; border-radius:50%;
+    border:3px dashed rgba(191,64,77,0.4);
+    background:repeating-linear-gradient(135deg, rgba(191,64,77,0.05), rgba(191,64,77,0.05) 10px, rgba(255,253,248,0.4) 10px, rgba(255,253,248,0.4) 20px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--primary);
+  }
+  .team-photo .icon{font-size:1.7rem; line-height:1;}
+  .team-photo small{display:block; margin-top:6px; font-weight:600; color:rgba(42,34,38,0.5); font-size:0.68rem; letter-spacing:0.03em;}
+  .team-card h4{font-family:'Jost'; font-size:1.1rem; font-weight:700; margin:0 0 4px;}
+  .team-card .role{display:block; color:var(--primary); font-weight:700; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.06em;}
+  @media (max-width:920px){ .team-grid{grid-template-columns:repeat(2,1fr); gap:36px 24px;} }
+  @media (max-width:520px){ .team-grid{grid-template-columns:1fr; max-width:260px; margin-left:auto; margin-right:auto;} }
   .cta .wrap{display:grid; grid-template-columns:1fr 0.8fr; gap:50px; align-items:center;}
   .cta h2{font-size:clamp(2rem,3.8vw,2.9rem); line-height:1.14;}
   .cta p{color:rgba(42,34,38,0.7); max-width:440px; margin:18px 0 34px; font-size:1.02rem;}
@@ -480,7 +496,7 @@
   /* ---------- LEGAL BAR ---------- */
   .legal-bar{
     background:var(--ink); color:rgba(255,253,248,0.55);
-    padding:20px 0; font-size:0.78rem; line-height:1.7;
+    margin-top:36px; padding:20px 0; font-size:0.78rem; line-height:1.7;
   }
   .legal-bar .wrap{
     display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px 24px;
@@ -715,12 +731,12 @@
       <span class="eyebrow">Ils nous soutiennent</span>
     </div>
     <div class="logo-wall" data-reveal>
-      <div class="logo-slot"><small>Fondation Bernheim</small></div>
-      <div class="logo-slot"><small>Bureau International Jeunesse</small></div>
-      <div class="logo-slot"><small>Erasmus+</small></div>
-      <div class="logo-slot logo-slot--add"><span>+</span><small>Ajouter un logo</small></div>
+      <!-- Chaque bloc ci-dessous accueille un logo : remplace <div class="logo-slot"><span>+</span></div> par <img src="ton-logo.png" class="logo-slot"> -->
+      <div class="logo-slot"><span>+</span></div>
+      <div class="logo-slot"><span>+</span></div>
+      <div class="logo-slot"><span>+</span></div>
+      <div class="logo-slot"><span>+</span></div>
     </div>
-    <p class="supporters-note">Envoie-moi les logos (idéalement en PNG/SVG fond transparent) et je les place ici, cette rangée s'agrandit facilement à chaque nouveau soutien.</p>
   </div>
 </section>
 
@@ -757,6 +773,58 @@
     <a href="soutenir.html" class="btn-primary" style="margin-top:44px; display:inline-flex;">En savoir plus sur le soutien →</a>
   </div>
 </section>
+
+<div class="wave" style="transform:rotate(180deg);"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,40 C 240,10 480,60 720,35 C 960,10 1200,55 1440,30 L1440,0 L0,0 Z" fill="#FFFDF8"/></svg></div>
+
+<section class="team" id="equipe">
+  <div class="wrap">
+    <div class="team-head" data-reveal>
+      <span class="eyebrow">Notre équipe</span>
+      <h2>Les visages derrière Felobel.</h2>
+      <p>Une équipe de coachs et de bénévoles qui accompagne chaque jeune adulte, sur scène comme en coulisses.</p>
+    </div>
+    <div class="team-grid" data-reveal>
+      <!-- Membre 1 : remplace la photo, le nom et la fonction -->
+      <div class="team-card">
+        <div class="team-photo"><span class="icon">🙂</span><small>Photo</small></div>
+        <h4>Prénom Nom</h4>
+        <span class="role">Fonction</span>
+      </div>
+      <!-- Membre 2 -->
+      <div class="team-card">
+        <div class="team-photo"><span class="icon">🙂</span><small>Photo</small></div>
+        <h4>Prénom Nom</h4>
+        <span class="role">Fonction</span>
+      </div>
+      <!-- Membre 3 -->
+      <div class="team-card">
+        <div class="team-photo"><span class="icon">🙂</span><small>Photo</small></div>
+        <h4>Prénom Nom</h4>
+        <span class="role">Fonction</span>
+      </div>
+      <!-- Membre 4 -->
+      <div class="team-card">
+        <div class="team-photo"><span class="icon">🙂</span><small>Photo</small></div>
+        <h4>Prénom Nom</h4>
+        <span class="role">Fonction</span>
+      </div>
+      <!-- Membre 5 -->
+      <div class="team-card">
+        <div class="team-photo"><span class="icon">🙂</span><small>Photo</small></div>
+        <h4>Prénom Nom</h4>
+        <span class="role">Fonction</span>
+      </div>
+      <!-- Membre 6 -->
+      <div class="team-card">
+        <div class="team-photo"><span class="icon">🙂</span><small>Photo</small></div>
+        <h4>Prénom Nom</h4>
+        <span class="role">Fonction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,20 C 240,60 480,0 720,30 C 960,60 1200,10 1440,35 L1440,70 L0,70 Z" fill="#FCEACF"/></svg></div>
 
 <section class="cta" id="cta">
   <div class="wrap">
