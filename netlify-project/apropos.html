@@ -77,6 +77,38 @@
   }
   .nav-cta:hover{background:var(--primary-dark); transform:translateY(-2px) scale(1.03);}
 
+  /* ---------- NAV DROPDOWN (Activites) ---------- */
+  .nav-dropdown{position:relative;}
+  .nav-dropdown-trigger{display:inline-flex; align-items:center; gap:3px;}
+  .nav-dropdown-toggle{
+    background:none; border:none; padding:4px; margin:0 -4px 0 -2px; cursor:pointer;
+    display:inline-flex; align-items:center; color:inherit; opacity:0.65;
+  }
+  .nav-dropdown-toggle .chev{display:block; transition:transform .25s ease;}
+  .nav-dropdown.open .nav-dropdown-toggle .chev{transform:rotate(180deg);}
+  .nav-dropdown-menu{
+    position:absolute; top:100%; left:50%; transform:translate(-50%,8px);
+    background:var(--white); border-radius:16px; box-shadow:0 18px 40px rgba(42,34,38,0.16);
+    padding:10px; min-width:220px; display:flex; flex-direction:column; gap:1px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease, visibility .18s ease;
+    z-index:60;
+  }
+  .nav-dropdown.open .nav-dropdown-menu{
+    opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,0);
+  }
+  .nav-dropdown-menu a{
+    opacity:0.75 !important; padding:9px 14px !important; border-radius:10px;
+    font-size:0.88rem; white-space:nowrap; width:auto;
+  }
+  .nav-dropdown-menu a:hover{background:var(--cream); opacity:1 !important; color:var(--primary);}
+  @media (hover:hover) and (pointer:fine){
+    .nav-dropdown:hover .nav-dropdown-toggle .chev{transform:rotate(180deg);}
+    .nav-dropdown:hover .nav-dropdown-menu{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,0);
+    }
+  }
+
   /* ---------- PAGE HERO (interior pages, distinct from home hero) ---------- */
   .page-hero{padding:70px 0 0; text-align:center;}
   .page-hero .wrap{max-width:760px;}
@@ -366,6 +398,18 @@
     }
     .nav-links.open{max-height:420px; opacity:1; pointer-events:auto; padding:14px 32px 22px; border-bottom:1px solid rgba(42,34,38,0.1); box-shadow:0 12px 20px rgba(42,34,38,0.06);}
     .nav-links a{padding:11px 0; width:100%;}
+    .nav-dropdown{width:100%;}
+    .nav-dropdown-trigger{width:100%; justify-content:space-between; padding:11px 0;}
+    .nav-dropdown-trigger a{padding:0 !important; width:auto !important;}
+    .nav-dropdown-toggle{padding:8px; margin:0 -8px 0 0;}
+    .nav-dropdown-menu{
+      position:static; opacity:1; visibility:visible; pointer-events:auto; transform:none;
+      box-shadow:none; padding:0; margin:0 0 6px 8px; min-width:0;
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
+      border-left:2px solid rgba(191,64,77,0.18);
+    }
+    .nav-dropdown.open .nav-dropdown-menu{max-height:360px;}
+    .nav-dropdown-menu a{padding:9px 14px !important;}
   }
 
   /* ---------- ACCESSIBILITY ---------- */
@@ -400,7 +444,21 @@
     <div class="nav-links">
       <a href="apropos.html" class="active">Qui sommes-nous</a>
       <a href="thematiques.html">Thématiques</a>
-      <a href="activites.html">Activités</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-trigger">
+          <a href="activites.html">Activités</a>
+          <button type="button" class="nav-dropdown-toggle" aria-label="Afficher le sous-menu Activités" aria-expanded="false"><svg class="chev" viewBox="0 0 10 6" width="10" height="6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </span>
+        <div class="nav-dropdown-menu">
+          <a href="activites.html">Vue d'ensemble</a>
+          <a href="publiq.html">Publiq</a>
+          <a href="ateliers-programmes.html">Ateliers &amp; Programmes</a>
+          <a href="parole-justice.html">Parole &amp; Justice</a>
+          <a href="parcours-citoyens.html">Parcours citoyens</a>
+          <a href="voyages-visites.html">Voyages &amp; Visites</a>
+          <a href="elohub.html">EloHub</a>
+        </div>
+      </div>
       <a href="livrables.html">Livrables</a>
       <a href="photos.html">Nos Photos</a>
       <a href="soutenir.html">Nous soutenir</a>
@@ -662,6 +720,26 @@
       navToggle.setAttribute('aria-expanded', 'false');
     }));
   }
+
+  // ---------- Menu deroulant "Activites" ----------
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const dropdown = btn.closest('.nav-dropdown');
+      const isOpen = dropdown.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+      if (!dd.contains(e.target)) {
+        dd.classList.remove('open');
+        const t = dd.querySelector('.nav-dropdown-toggle');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
 </script>
 
 </body>
